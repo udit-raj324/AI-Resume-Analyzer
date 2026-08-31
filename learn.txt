@@ -1,0 +1,10 @@
+VENV
+All project same opackages
+
+A > Flask 2
+b Flask 3
+
+with VENV 
+1 - setup
+2- database connection
+

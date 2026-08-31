@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Dashboard</h1>
+  <p>Welcome, {{ user }}.</p>
+
+  {% if result %}
+    {% if result.error %}
+      <p class="error">{{ result.error }}</p>
+    {% else %}
+      <h2>Analysis result</h2>
+
+      <div class="section">
+        <h3>Skills</h3>
+        <ul class="tag-list">
+          {% for skill in result.skills %}
+            <li class="tag">{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>Missing skills</h3>
+        <ul class="tag-list">
+          {% for skill in result.missing_skills %}
+            <li class="tag">{{ skill }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="section">
+        <h3>Roadmap</h3>
+        <ol class="list">
+          {% for step in result.roadmap %}
+            <li>{{ step }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      <div class="section">
+        <h3>Interview questions</h3>
+        <ol class="list">
+          {% for q in result.interview_question %}
+            <li>{{ q }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+    <label for="role">Job goal or target role</label>
+    <input type="text" id="role" name="role" required />
+
+    <label for="resume">Paste your resume text</label>
+    <textarea id="resume" name="resume" rows="8"></textarea>
+
+    <label for="file">Or upload a PDF or DOCX resume</label>
+    <input type="file" id="file" name="file" accept=".pdf,.docx" />
+
+    <button type="submit">Analyze Resume</button>
+  </form>
+{% endblock %}

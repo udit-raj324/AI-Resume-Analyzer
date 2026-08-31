@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Submission History</h1>
+  {% if reports %}
+    {% for report in reports %}
+      <div style="margin-bottom: 32px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <h2>Resume entry {{ loop.index }}</h2>
+
+        <div class="section">
+          <h3>Resume text</h3>
+          <pre>{{ report.resume }}</pre>
+        </div>
+
+        {% if report.result and report.result.skills %}
+          <div class="section">
+            <h3>Skills</h3>
+            <ul class="tag-list">
+              {% for skill in report.result.skills %}
+                <li class="tag">{{ skill }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Missing skills</h3>
+            <ul class="tag-list">
+              {% for skill in report.result.missing_skills %}
+                <li class="tag">{{ skill }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="section">
+            <h3>Roadmap</h3>
+            <ol class="list">
+              {% for step in report.result.roadmap %}
+                <li>{{ step }}</li>
+              {% endfor %}
+            </ol>
+          </div>
+
+          <div class="section">
+            <h3>Interview questions</h3>
+            <ol class="list">
+              {% for q in report.result.interview_question %}
+                <li>{{ q }}</li>
+              {% endfor %}
+            </ol>
+          </div>
+        {% else %}
+          <p>No result data was found for this resume.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No saved resume history yet.</p>
+  {% endif %}
+{% endblock %}
