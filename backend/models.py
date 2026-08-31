@@ -6,7 +6,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     email = Column(String(100), unique=True)
-    password = Column(String(100))
+    password = Column(String(255)) # <-- Changed 100 to 255 here
 
 
 class Report(Base):
